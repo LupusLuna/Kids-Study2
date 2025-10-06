@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Master der Bausteine - Studiengangsgenerator</title>
+<link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+<h1>Master der Bausteine - Studiengangsgenerator-V2</h1>
+
+<!-- Schritt 1 -->
+  <div id="step1" class="step">
+    <h2>1. Abschluss wählen</h2>
+    <p>Wähle deinen Abschluss:</p>
+    <button class="primary" onclick="startSpecializationStep('Master der Bausteine')">
+      Master der Bausteine
+    </button>
+  </div>
+
+  <!-- Schritt 2 -->
+  <div id="step2" class="step hidden">
+    <h2>2. Spezialisierung wählen</h2>
+    <p>Du kannst maximal <strong>2 Spezialisierungen</strong> auswählen:</p>
+    <div id="spezialisierungen" class="grid"></div>
+  </div>
+
+    <!-- Schritt 3 -->
+  <div id="step3" class="step hidden">
+    <h2>3. Passende Bausteine wählen</h2>
+    <p>Wähle bis zu <strong>3 Bausteine</strong>:</p>
+    <div id="bausteine" class="grid"></div>
+  </div>
+
+  <!-- Schritt 4 -->
+  <div id="step4" class="step hidden">
+    <h2>4. Zusammenfassung prüfen</h2>
+    <div id="summary"></div>
+    <button class="primary" onclick="showResult()">Weiter zum Ergebnis</button>
+  </div>
+
+  <!-- Ergebnis-Seite -->
+  <div id="result" class="step hidden"></div>
+
+  <script src="scripts/script.js"></script>
+</body>
+</html>
+

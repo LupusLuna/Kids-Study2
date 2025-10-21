@@ -20,10 +20,10 @@ const bausteine = [
 // 2. Definition der Spezialisierungen
 // ----------------------------
 const spezialisierungen = [
-  { name:"Natur", cores:["Wald & Tiere", "Bauernhof", "Wüste"], beschreibung:"Bau dir dein Bild von der Natur", stundenplan:["Farm","Tiere halten","Natur entdecken"] },
-  { name:"City", cores:["Stadt", "Krankenhaus", "Feuerwehr & Polizei"], beschreibung:"Erstelle eine Stadt mit allem was dazu gehört", stundenplan:["Haus","Hochhaus","Sehenswertes"] },
-  { name:"Action", cores:["Ninja", "Rennsport", "Fussball"], beschreibung:"Sport als Abenteuer, entwickel deine eigenen Sportarea", stundenplan:["Fit","Outdoor-Aktivitäten","Spiel"] },
-  { name:"Technik", cores:["Auto", "Flugzeug", "Rakete"], beschreibung:"Tüfteln, bauen, technisch überlegen", stundenplan:["Robotik","Programmieren","Bauprojekte"] }
+  { name:"Natur", image:"../images/Natur1.jpg", cores:["Wald & Tiere", "Bauernhof", "Wüste"], beschreibung:"Bau dir dein Bild von der Natur", stundenplan:["Farm","Tiere halten","Natur entdecken"] },
+  { name:"City", image:"../images/City1.jpg", cores:["Stadt", "Krankenhaus", "Feuerwehr & Polizei"], beschreibung:"Erstelle eine Stadt mit allem was dazu gehört", stundenplan:["Haus","Hochhaus","Sehenswertes"] },
+  { name:"Action", image:"../images/Action1.jpg", cores:["Ninja", "Rennsport", "Fussball"], beschreibung:"Sport als Abenteuer, entwickel deine eigenen Sportarea", stundenplan:["Fit","Outdoor-Aktivitäten","Spiel"] },
+  { name:"Technik", image:"../images/Technik1.jpg", cores:["Auto", "Flugzeug", "Rakete"], beschreibung:"Tüfteln, bauen, technisch überlegen", stundenplan:["Robotik","Programmieren","Bauprojekte"] }
 ];
 
 // ----------------------------
@@ -56,23 +56,27 @@ function startSpecializationStep(degreeName){
 // ----------------------------
 // Step 2: Spezialisierungen rendern
 // ----------------------------
-function renderSpezialisierungen(){
+function renderSpezialisierungen() {
   const container = document.getElementById("spezialisierungen");
   container.innerHTML = "";
 
   spezialisierungen.forEach(spec => {
     const div = document.createElement("div");
-    div.className = "card spec";
-    div.innerHTML = `<strong>${spec.name}</strong><div class="desc">${spec.beschreibung}</div>`;
-    if(selectedSpezialisierungen.includes(spec.name)) div.classList.add("selected");
+    div.className = "spezialisierung-card";
+    div.innerHTML = `
+      <img src="${spec.image}" alt="${spec.name}">
+      <p>${spec.name}</p>
+    `;
+
+    if (selectedSpezialisierungen.includes(spec.name)) div.classList.add("selected");
 
     div.onclick = () => {
-      if(selectedSpezialisierungen.includes(spec.name)){
+      if (selectedSpezialisierungen.includes(spec.name)) {
         selectedSpezialisierungen = selectedSpezialisierungen.filter(s => s !== spec.name);
         div.classList.remove("selected");
         return;
       }
-      if(selectedSpezialisierungen.length >= 2){
+      if (selectedSpezialisierungen.length >= 2) {
         alert("Maximal 2 Spezialisierungen erlaubt.");
         return;
       }
@@ -83,14 +87,14 @@ function renderSpezialisierungen(){
     container.appendChild(div);
   });
 
-  // alte Button-Bar entfernen, falls vorhanden
+  // Alte Button-Bar entfernen, falls vorhanden
   const oldBtnBar = document.querySelector("#step2 .button-bar");
-  if(oldBtnBar) oldBtnBar.remove();
+  if (oldBtnBar) oldBtnBar.remove();
 
-  // neue Button-Bar anlegen
-  let btnBar = document.createElement("div");
+  // Neue Button-Bar
+  const btnBar = document.createElement("div");
   btnBar.className = "button-bar";
-  let btn = document.createElement("button");
+  const btn = document.createElement("button");
   btn.textContent = "Weiter zu Bausteinen";
   btn.className = "primary";
   btn.onclick = () => toBausteineStep();
@@ -224,22 +228,23 @@ function showSummary(){
   }).join("");
 
   // === Modulplan mit Farben, max 3 pro Zeile ===
-  const modulHTML = `
+const modulHTML = `
+  <div class="modulplan-wrapper">
     <div class="modulplan">
-      <h3>Dein Modulplan</h3>
-      <!-- Modul 1 groß -->
+      <h3>Modulplan</h3>
       <div class="modul start" data-number="Modul 1">Grundlagen der Bausteine</div>
-      <!-- Individuelle Module -->
       <div class="modul-liste">
         ${module.slice(1).map((m, i) => `
-          <div class="modul" data-number="Modul ${i + 2}"
-               style="background:${colors[i % colors.length]};">
+          <div class="modul"
+               data-number="Modul ${i + 2}"
+               data-color="${(i % 6) + 1}">
             ${m.name}
           </div>
         `).join("")}
       </div>
     </div>
-  `;
+  </div>
+`;
 
   // === Alles zusammenbauen ===
   result.innerHTML = `

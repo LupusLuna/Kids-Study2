@@ -5,10 +5,33 @@ body {
     text-align:center; 
     margin:0; 
     padding:20px; 
+    position: relative;
+    overflow-x: hidden;
+}
+/* === Halbtransparenter Schleier über dem Wallpaper === */
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5); /* milchiger Weiß-Schleier */
+  backdrop-filter: blur(2px);            /* weicher Blur-Effekt */
+  z-index: 0;                            /* unter den Inhalten bleiben */
+  pointer-events: none;                  /* Klicks gehen durch */
 }
 
+/* Alles im Inhalt soll über dem Schleier liegen */
+.step, h1, button, .modulplan-wrapper, .result-grid {
+  position: relative;
+  z-index: 1;
+}
+
+
+
 h1,h2,h3, p { 
-    color:#e0eeee;
+    /*color:#e0eeee;*/
+    color: #0d0457;
 }
 
 button {
@@ -100,11 +123,13 @@ button.primary {
 }
 
 .summary-box {
-  background: #000000;
-  border: 2px solid #0077cc;
-  border-radius: 10px;
-  padding: 15px;
-  margin: 20px 0;
+  background: rgba(255, 255, 255, 0.85); /* halbtransparentes Fenster */
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 750px;
+  margin: 40px auto;
+  backdrop-filter: blur(4px); /* leicht verschwommener Hintergrund */
 }
 
 .button-bar {
@@ -130,8 +155,57 @@ ul {
   margin: 20px auto;
   margin-left: auto;
   margin-right: auto;
+} 
+
+/* === Karten für Spezialisierungen === */
+.spezialisierung-card {
+  width: 180px;
+  text-align: center;
+  background: #000;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  border: 2px solid transparent;
 }
 
+.spezialisierung-card:hover {
+  transform: scale(1.05);
+  border-color: #0077cc;
+}
+
+.spezialisierung-card.selected {
+  border-color: #09ca29;
+  box-shadow: 0 0 10px rgba(1, 141, 31, 0.4);
+  background: #afd3af;
+}
+.spezialisierung-card.selected p {
+  color: #000;
+}
+
+.spezialisierung-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-bottom: 2px solid #0077cc;
+}
+
+.spezialisierung-card p {
+  color:#e0eeee;
+  margin: 8px 0;
+  font-weight: bold;
+}
+
+/* .spezialisierung-card .desc {
+  font-size: 0.85em;
+  color: #555;
+  margin-bottom: 10px;
+  padding: 0 8px;
+} */
+
+
+/* Baustein Karten */
 #bausteine {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -149,7 +223,6 @@ ul {
 .baustein-card {
   width: 180px;
   text-align: center;
-  color:#e0eeee;
   background: #000;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -165,7 +238,6 @@ ul {
 }
 
 .baustein-card.selected {
-  color: #000;
   border-color: #09ca29;
   box-shadow: 0 0 10px rgba(1, 141, 31, 0.4);
   background: #afd3af;
@@ -182,6 +254,7 @@ ul {
 }
 
 .baustein-card p {
+  color:#e0eeee;
   margin: 8px 0;
   font-weight: bold;
 }
@@ -216,6 +289,7 @@ ul {
 }
 
 .result-card p {
+  color:#e0eeee;
   margin: 8px 0;
   font-weight: bold;
 }
@@ -223,16 +297,22 @@ ul {
 
 /* Modulplan */
 
-/* === MODULPLAN-Layout === */
-.modulplan {
-  margin-top: 40px;
-  text-align: center;
+/* === MODULPLAN Container mit Fenster-Effekt === */
+.modulplan-wrapper {
+  background: rgba(255, 255, 255, 0.85); /* halbtransparentes Fenster */
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 750px;
+  margin: 40px auto;
+  backdrop-filter: blur(4px); /* leicht verschwommener Hintergrund */
 }
 
+/* Überschrift im Plan */
 .modulplan h3 {
   margin-bottom: 20px;
   font-size: 1.4em;
-  color:#e0eeee;
+  color: #004c80;
 }
 
 /* Oberer Balken (Modul 1) */
@@ -241,16 +321,17 @@ ul {
   width: 90%;
   max-width: 600px;
   margin: 0 auto 25px auto;
-  background: linear-gradient(135deg, #0077cc, #00bfff);
+  background: linear-gradient(135deg, #0077cc, #66b2ff);
   color: #fff;
   border-radius: 25px;
   padding: 20px 0;
   font-size: 1.2em;
   font-weight: bold;
-  box-shadow: 0 0 15px rgba(0,119,204,0.4);
+  box-shadow: 0 0 10px rgba(0, 119, 204, 0.3);
   position: relative;
 }
 
+/* Badge über Modul 1 */
 .modul.start::before {
   content: attr(data-number);
   position: absolute;
@@ -264,7 +345,7 @@ ul {
   border-radius: 10px;
 }
 
-/* Untere Modulzeilen */
+/* Untere Module */
 .modul-liste {
   display: flex;
   flex-wrap: wrap;
@@ -278,18 +359,26 @@ ul {
 
 /* Einzelne Module */
 .modul {
-  flex: 1 1 calc(33.333% - 12px); /* max. 3 nebeneinander */
+  flex: 1 1 calc(33.333% - 12px);
   min-width: 160px;
-  border-radius: 25px;
+  border-radius: 20px;
   padding: 12px 0;
-  font-weight: bold;
+  font-weight: 600;
   color: #fff;
   position: relative;
   transition: transform 0.2s ease;
 }
 
+/* dezentere, hellere Farbpalette */
+.modul[data-color="1"] { background: #6fb1fc; }
+.modul[data-color="2"] { background: #86d3a3; }
+.modul[data-color="3"] { background: #f6b26b; }
+.modul[data-color="4"] { background: #b49ddf; }
+.modul[data-color="5"] { background: #f3a6b2; }
+.modul[data-color="6"] { background: #ffd966; }
+
 .modul:hover {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
 /* Modulnummer-Badge */
@@ -299,11 +388,10 @@ ul {
   top: -10px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.95);
   color: #333;
   font-size: 0.8em;
   font-weight: bold;
   padding: 2px 8px;
   border-radius: 10px;
 }
-

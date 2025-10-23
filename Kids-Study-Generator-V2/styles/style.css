@@ -147,11 +147,11 @@ ul {
 
 #spezialisierungen {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 15px;
   justify-content: center;    /* Inhalt zentrieren */
   margin-top: 20px;
-  max-width: 400px;           /* sorgt dafür, dass es nie mehr als 3 Spalten gibt */
+  max-width: 600px;           /* sorgt dafür, dass es nie mehr als 2 Spalten gibt */
   margin: 20px auto;
   margin-left: auto;
   margin-right: auto;
@@ -159,7 +159,7 @@ ul {
 
 /* === Karten für Spezialisierungen === */
 .spezialisierung-card {
-  width: 180px;
+  width: 280px;
   text-align: center;
   background: #000;
   border-radius: 12px;
@@ -208,11 +208,11 @@ ul {
 /* Baustein Karten */
 #bausteine {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 15px;
   justify-content: center;    /* Inhalt zentrieren */
   margin-top: 20px;
-  max-width: 600px;           /* sorgt dafür, dass es nie mehr als 3 Spalten gibt */
+  max-width: 900px;           /* sorgt dafür, dass es nie mehr als 3 Spalten gibt */
   margin: 20px auto;
   margin-left: auto;
   margin-right: auto;
@@ -221,7 +221,7 @@ ul {
 /* Bild Darstellung bei der Bausteinwahl */
 /* Karten für Bausteine mit Bildern */
 .baustein-card {
-  width: 180px;
+  width: 280px;
   text-align: center;
   background: #000;
   border-radius: 12px;
@@ -268,7 +268,7 @@ ul {
 }
 
 .result-card {
-  width: 180px;
+  width: 280px;
   text-align: center;
   background: #000;
   border-radius: 12px;
@@ -395,3 +395,4 @@ ul {
   padding: 2px 8px;
   border-radius: 10px;
 }
+
